@@ -34,18 +34,14 @@ Data schema:
 */
 function validateTask(task) {
     const schema = {
-        id: Joi.any(),
-        name: Joi.string().min(3).required()
-        //description: Joi.string().min(3),
-        //due: Joi.date()
+        name: Joi.string().min(3).required(),
+        description: Joi.string().min(3),
+        due: Joi.date()
     };
 
     return Joi.validate(task, schema);
 }
 
-const task = tasks.find(t => t.id===1);
-console.log(task);
-console.log(validateTask(task));
 /*
 User Interface:
     RESTful API, 
