@@ -21,7 +21,7 @@ Data schema:
 
 User Interface:
     RESTful API, 
-    Create -> POST
+    Create -> POST /ToDo/list/
     Read List -> GET /ToDo/list/
     Read Item -> GET /ToDo/list/#
     Update -> Put /ToDo/list/#
@@ -31,7 +31,7 @@ User Interface:
     If time permits, input forms will be created on a basic html web server.
 
 Code:
-    Create -> POST
+    Create -> POST /ToDo/list/
      -validate input via joi: min 3 characters, no data type besides the schema
       -on fail return 400
      -return input

@@ -41,36 +41,35 @@ function validateTask(task) {
     return Joi.validate(task, schema);
 }
 
-/*
-User Interface:
-    RESTful API, 
-    Create -> POST
-    Read List -> GET /ToDo/list/
-    Read Item -> GET /ToDo/list/#
-    Update -> Put /ToDo/list/#
-    Delete -> Delete /ToDo/list/#
-
-    Interactions done through RESTer
-    If time permits, input forms will be created on a basic html web server.
-*/
-
-/*
-Code:
-    Create -> POST
+app.post('/ToDo/list/', (req,res) => {
+    /*
+    Create -> POST /ToDo/list/
      -validate input via joi: min 3 characters, no data type besides the schema
       -on fail return 400
      -return input
+    */
+});
 
+app.get('/ToDo/list', (req,res)=>{
+    /*
     Read List -> GET /ToDo/list/
      -validate list is not empty
       -on fail return "empty list"
      -return list
-    
+     */
+});
+
+app.get('/ToDo/list/:id', (req,res) => {
+    /*
     Read Item -> GET /ToDo/list/#
      -validate item in list
       -on fail return "item does not exist"
      -return item
+    */
+});
 
+app.put('/ToDo/list/:id', (req,res) => {
+    /*
     Update -> Put /ToDo/list/#
      -validate input via joi: min 3 characters, no data type besides the schema (Done first b/c quicker than database access)
       -on fail return 400
@@ -78,10 +77,19 @@ Code:
       -on fail return "item does not exist"
      -Add to list
      -return item
-
+    */
+});
+    
+app.delete('/ToDo/list/:id', (req,res) => {
+    /*
     Delete -> Delete /ToDo/list/#
     -validate item in list
      -on fail return "item does not exist"
     -delete item
     -return item
     */
+});
+
+//Spin up server based on Enviroment Var 'PORT' or use 3000
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Listening on port ${port}...`));
