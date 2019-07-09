@@ -9,17 +9,26 @@ Description: This is intended to be a basic web based ToDo application in which 
     Update an item within the To Do list, (resulting in an edited field)
     Delete an item from the list.
 */
+const Joi = require('joi');
+const express = require('express');
+const app = express();
 
+const tasks = [
+    { id: 1, name: "task1"},
+    { id: 2, name: "task2"},
+    { id: 3, name: "task3"}
+];
 
 /*
 Data schema:
 (First just name, then implementing other features)
 {
-    "name" : "name"
-    "Description" : "Description" (optional)
-    "Creation date": "created"
-    "Edited date":  (optional)
-    "Due date":     (optional)
+    "id": int ID
+    "name" : string "name"
+    "Description" : string "Description" (optional)
+    "Creation date": date? "created"
+    "Edited date":  date? ""(optional)
+    "Due date":     date? ""(optional)
 }
 */
 

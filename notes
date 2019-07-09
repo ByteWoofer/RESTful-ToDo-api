@@ -11,11 +11,12 @@ Description: This is intended to be a basic web based ToDo application in which 
 Data schema:
 (First just name, then implementing other features)
 {
-    "name" : "name"
-    "Description" : "Description" (optional)
-    "Creation date": "created"
-    "Edited date":  (optional)
-    "Due date":     (optional)
+    "id": int ID
+    "name" : string "name"
+    "Description" : string "Description" (optional)
+    "Creation date": date? "created"
+    "Edited date":  date? ""(optional)
+    "Due date":     date? ""(optional)
 }
 
 User Interface:
