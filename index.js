@@ -10,10 +10,9 @@ Description: This is intended to be a basic web based ToDo application in which 
     Delete an item from the list.
 */
 const Joi = require('joi');
-/*
 const express = require('express');
 const app = express();
-*/
+
 const tasks = [
     { id: 1, name: "task1"},
     { id: 2, name: "task2"},
