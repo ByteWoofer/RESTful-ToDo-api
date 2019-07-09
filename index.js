@@ -40,6 +40,7 @@ function validateTask(task) {
 
     return Joi.validate(task, schema);
 }
+console.log(validateTask(tasks(0)));
 /*
 User Interface:
     RESTful API, 
