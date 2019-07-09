@@ -10,9 +10,10 @@ Description: This is intended to be a basic web based ToDo application in which 
     Delete an item from the list.
 */
 const Joi = require('joi');
+/*
 const express = require('express');
 const app = express();
-
+*/
 const tasks = [
     { id: 1, name: "task1"},
     { id: 2, name: "task2"},
@@ -33,14 +34,18 @@ Data schema:
 */
 function validateTask(task) {
     const schema = {
-        name: Joi.string().min(3).required(),
+        id: Joi.any(),
+        name: Joi.string().min(3).required()
         //description: Joi.string().min(3),
         //due: Joi.date()
     };
 
     return Joi.validate(task, schema);
 }
-console.log(validateTask(tasks(0)));
+
+const task = tasks.find(t => t.id===1);
+console.log(task);
+console.log(validateTask(task));
 /*
 User Interface:
     RESTful API, 
