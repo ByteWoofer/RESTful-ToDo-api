@@ -31,7 +31,15 @@ Data schema:
     "Due date":     date? ""(optional)
 }
 */
+function validateTask(task) {
+    const schema = {
+        name: Joi.string().min(3).required(),
+        //description: Joi.string().min(3),
+        //due: Joi.date()
+    };
 
+    return Joi.validate(task, schema);
+}
 /*
 User Interface:
     RESTful API, 
