@@ -45,11 +45,15 @@ function validateTask(task) {
 }
 
 function validateJSON(json){
+    /*Usage:
+        const err = validateJSON(req.body)
+    if(err) return res.status(400).send(err.message);
+    */
     try {
     JSON.parse(json);
-    return true;
-    }    catch{
-        return false;
+    return;
+    }    catch(err){
+        return err;
     }
 }
 
@@ -60,7 +64,6 @@ app.post('/ToDo/list/', (req,res) => {
       -on fail return 400
      -return input
     */
-
     const { error: check } = validateTask(req.body);
    if (check) return res.status(400).send(check.details[0].message);
     var task = {
