@@ -13,6 +13,8 @@ const Joi = require('joi');
 const express = require('express');
 const app = express();
 
+app.use(express.json()); //enable getting query from body
+
 const tasks = [
     { id: 1, name: "task1"},
     { id: 2, name: "task2"},
@@ -31,6 +33,7 @@ Data schema:
     "Due date":     date? ""(optional)
 }
 */
+
 function validateTask(task) {
     const schema = {
         name: Joi.string().min(3).required(),
@@ -41,6 +44,15 @@ function validateTask(task) {
     return Joi.validate(task, schema);
 }
 
+function validateJSON(json){
+    try {
+    JSON.parse(json);
+    return true;
+    }    catch{
+        return false;
+    }
+}
+
 app.post('/ToDo/list/', (req,res) => {
     /*
     Create -> POST /ToDo/list/
@@ -48,7 +60,8 @@ app.post('/ToDo/list/', (req,res) => {
       -on fail return 400
      -return input
     */
-   const { error: check } = validateTask(req.body);
+
+    const { error: check } = validateTask(req.body);
    if (check) return res.status(400).send(check.details[0].message);
     var task = {
         id: tasks.length + 1,
@@ -113,7 +126,6 @@ app.put('/ToDo/list/:id', (req,res) => {
     */
 
     res.send(task);
-
 });
     
 app.delete('/ToDo/list/:id', (req,res) => {
