@@ -48,6 +48,16 @@ app.post('/ToDo/list/', (req,res) => {
       -on fail return 400
      -return input
     */
+   const { error: check } = validateTask(req.body);
+   if (check) return res.status(400).send(check.details[0].message);
+    var task = {
+        id: tasks.length + 1,
+        name: req.body.name
+    }
+    if (req.body.description) task.description = req.body.description;
+    if (req.body.due) task.due = req.body.due;
+    tasks.push(task);
+    res.send(task);
 });
 
 app.get('/ToDo/list', (req,res)=>{
@@ -57,6 +67,8 @@ app.get('/ToDo/list', (req,res)=>{
       -on fail return "empty list"
      -return list
      */
+    if(!tasks) return res.status(400).send("The task list is empty!");
+    res.send(tasks);
 });
 
 app.get('/ToDo/list/:id', (req,res) => {
@@ -66,28 +78,61 @@ app.get('/ToDo/list/:id', (req,res) => {
       -on fail return "item does not exist"
      -return item
     */
+   const task = tasks.find(t => t.id === parseInt(req.params.id));
+   if(!task) return res.status(400).send("That id does not exist.");
+   res.send(task);
 });
 
 app.put('/ToDo/list/:id', (req,res) => {
+    //    Update -> Put /ToDo/list/#
+
     /*
-    Update -> Put /ToDo/list/#
      -validate input via joi: min 3 characters, no data type besides the schema (Done first b/c quicker than database access)
       -on fail return 400
-     -validate item in list
+    */
+    const { error: check } = validateTask(req.body);
+    if (check) return res.status(400).send(check.details[0].message);
+
+    /*
+    -validate item in list
       -on fail return "item does not exist"
-     -Add to list
+    */
+    const task = tasks.find(t => t.id === parseInt(req.params.id));
+    if(!task) return res.status(400).send("That id does not exist.");
+
+    /*
+     -populate task with new request contents
+     */
+    
+    if (req.body.description) task.description = req.body.description;
+    if (req.body.due) task.due = req.body.due;
+    task.edit = new Date();
+
+    /*
      -return item
     */
+
+    res.send(task);
+
 });
     
 app.delete('/ToDo/list/:id', (req,res) => {
     /*
     Delete -> Delete /ToDo/list/#
+    */
+    
+    /*
     -validate item in list
      -on fail return "item does not exist"
-    -delete item
-    -return item
     */
+    const task = tasks.find(c => t.id === parseInt(req.params.id));
+    if(!task) return res.status(400).send("That id does not exist.");
+    //-delete item
+    const index = tasks.indexOf(task);
+    tasks.splice(index,1);
+
+    //-return item
+    res.send(task);
 });
 
 //Spin up server based on Enviroment Var 'PORT' or use 3000
