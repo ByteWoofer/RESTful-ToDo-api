@@ -151,7 +151,7 @@ app.delete('/ToDo/list/:id', (req,res) => {
     -validate item in list
      -on fail return "item does not exist"
     */
-    const task = tasks.find(c => t.id === parseInt(req.params.id));
+    const task = tasks.find(t => t.id === parseInt(req.params.id));
     if(!task) return res.status(400).send("That id does not exist.");
     //-delete item
     const index = tasks.indexOf(task);
