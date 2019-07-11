@@ -39,6 +39,7 @@ Data schema:
     "Creation date": date? "created"
     "Edited date":  date? ""(optional)
     "Due date":     date? ""(optional)
+    "done"  :   boolean
 }
 */
 
@@ -46,7 +47,8 @@ function validateTask(task) {
     const schema = {
         name: Joi.string().min(3).required(),
         description: Joi.string().min(3),
-        due: Joi.date()
+        due: Joi.date(),
+        done: Joi.boolean()
     };
 
     return Joi.validate(task, schema);
@@ -141,6 +143,7 @@ app.put('/ToDo/list/:id', (req,res) => {
     
     if (req.body.description) task.description = req.body.description;
     if (req.body.due) task.due = req.body.due;
+    if (req.body.done) task.done = req.body.done;
     task.edit = new Date();
 
     /*
