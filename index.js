@@ -46,13 +46,15 @@ function validateTask(task) {
 
 function validateJSON(json){
     /*Usage:
-        const err = validateJSON(req.body)
+    const err = validateJSON(req.body)
     if(err) return res.status(400).send(err.message);
     */
     try {
+        console.log("Trying!");
     JSON.parse(json);
     return;
     }    catch(err){
+        console.log("Caught!");
         return err;
     }
 }
@@ -64,6 +66,9 @@ app.post('/ToDo/list/', (req,res) => {
       -on fail return 400
      -return input
     */
+   const err = validateJSON(req.body);
+   if(err) return res.status(400).send(err.message);
+
     const { error: check } = validateTask(req.body);
    if (check) return res.status(400).send(check.details[0].message);
     var task = {
@@ -106,6 +111,10 @@ app.put('/ToDo/list/:id', (req,res) => {
      -validate input via joi: min 3 characters, no data type besides the schema (Done first b/c quicker than database access)
       -on fail return 400
     */
+   const err = validateJSON(req.body);
+   console.log(err);
+   if(err) return res.status(400).send(err.message);
+
     const { error: check } = validateTask(req.body);
     if (check) return res.status(400).send(check.details[0].message);
 
