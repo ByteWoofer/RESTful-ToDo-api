@@ -15,6 +15,14 @@ const app = express();
 
 app.use(express.json()); //enable getting query from body
 
+//enable Cross-Origin-Requests and required headers
+app.all('/ToDo/list/', function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "X-Requested-With");
+	res.header("Access-Control-Allow-Headers", "content-type");
+	next()
+});
+
 const tasks = [
     { id: 1, name: "task1"},
     { id: 2, name: "task2"},
